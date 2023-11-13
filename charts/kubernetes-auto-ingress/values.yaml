@@ -6,6 +6,7 @@ serviceAccount:
   name:
 
 annotationKey: maayanlab.cloud/ingress
+ingressClassName: nginx
 
 extraAnnotations:
   http:

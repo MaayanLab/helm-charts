@@ -29,6 +29,8 @@ spec:
             {{- end }}
           - name: ANNOTATION_KEY
             value: {{ index .Values "annotationKey" }}
+          - name: INGRESS_CLASS_NAME
+            value: {{ index .Values "ingressClassName" }}
           - name: ADDITIONAL_INGRESS_ANNOTATIONS_HTTP
             value: {{ index .Values "extraAnnotations" "http" "ingress" | toJson | quote }}
           - name: ADDITIONAL_INGRESS_ANNOTATIONS_HTTP
