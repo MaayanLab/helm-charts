@@ -13,7 +13,7 @@ extraAnnotations:
   http:
     # if using nginx
     ingress:
-      nginx.ingress.kubernetes.io/ssl-redirect": "false"
+      nginx.ingress.kubernetes.io/ssl-redirect: "false"
     # if using traefik
     # ingress:
     #   traefik.ingress.kubernetes.io/router.entrypoints: web
