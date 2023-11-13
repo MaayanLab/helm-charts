@@ -1,0 +1,3 @@
+# values.yaml follows a normalized docker-compose.yaml
+#  with some extensions, see README.md
+# You should use `docker-compose config` to construct this

@@ -1,0 +1,166 @@
+{{- define "env" -}}
+env:
+- null
+{{- range $name, $value := .service.environment | default list }}
+{{- if ne $value nil }}
+- name: {{ $name | toJson }}
+  value: {{ $value | toJson }}
+{{- end }}
+{{- end }}
+{{- end -}}
+
+{{- define "ports" -}}
+ports:
+- null
+{{- range $portIndex, $port := .service.ports | default list }}
+- name: port-{{ $portIndex }}
+  containerPort: {{ $port.target }}
+  protocol: {{ upper $port.protocol }}
+{{- end -}}
+{{- end -}}
+
+{{- define "volumes" -}}
+volumes:
+- null
+{{- range $volume := .service.volumes | default list }}
+- name: {{ $volume.source }}
+  mountPath: {{ $volume.target }}
+  subPath: data
+{{- end }}
+{{- end -}}
+
+{{- range $name, $service := $.Values.services }}
+{{- with dict "ReleaseName" $.Release.Name "name" $name "service" $service }}
+{{- $config := index .service "x-kubernetes" | default dict }}
+{{- if not ($config.exclude | default false) }}
+{{- $ports := slice (index ((include "ports" .) | fromYaml) "ports") 1 }}
+{{- $env := slice (index ((include "env" .) | fromYaml) "env") 1 }}
+{{- $volumes := slice (index ((include "volumes" .) | fromYaml) "volumes") 1 }}
+---
+apiVersion: apps/v1
+{{- if eq (.service.deploy | default dict).mode "global" }}
+kind: DaemonSet
+{{- else }}
+kind: Deployment
+{{- end }}
+metadata:
+  {{- if $config.labels }}
+  labels:
+    {{- range split "\n" ($config.labels | toYaml) }}
+    {{ . }}
+    {{- end }}
+  {{- end }}
+  {{- if $config.annotations }}
+  annotations:
+    {{- range split "\n" ($config.annotations | toYaml) }}
+    {{ . }}
+    {{- end }}
+  {{- end }}
+  name: {{ .ReleaseName }}-{{ $name }}
+spec:
+  replicas: {{ (.service.deploy | default dict).replicas | default 1 }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .ReleaseName }}
+      app.kubernetes.io/component: {{ $name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .ReleaseName }}
+        app.kubernetes.io/component: {{ $name }}
+    spec:
+      containers:
+      - name: {{ $name }}
+        image: {{ .service.image | toJson }}
+        imagePullPolicy: {{ $config.imagePullPolicy | default "Always" | toJson }}
+        {{- if .service.command }}
+        command: {{ list index .service.command 0 | toJson }}
+        arguments: {{ slice .service.command 1 | toJson }}
+        {{- end }}
+        {{- if $env }}
+        env:
+        {{- range split "\n" ($env | toYaml) }}
+        {{ . }}
+        {{- end }}
+        {{- end }}
+        {{- if $volumes }}
+        volumeMounts:
+        {{- range split "\n" ($volumes | toYaml) }}
+        {{ . }}
+        {{- end }}
+        {{- end }}
+        {{- if $ports }}
+        ports:
+        {{- range split "\n" ($ports | toYaml) }}
+        {{ . }}
+        {{- end }}
+        {{- end }}
+      dnsPolicy: {{ $config.dnsPolicy | default "ClusterFirst" }}
+      restartPolicy: {{ $config.restartPolicy | default "Always" }}
+      {{- if $volumes }}
+      volumes:
+      {{- range $vol := $volumes }}
+      {{- $volName := index $vol "name"}}
+      - name: {{ $volName }}
+        persistentVolumeClaim:
+          claimName: {{ $volName }}
+      {{- end }}
+      {{- end }}
+
+{{- if $ports }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  {{- if $config.labels }}
+  labels:
+    {{- range split "\n" ($config.labels | toYaml) }}
+    {{ . }}
+    {{- end }}
+  {{- end }}
+  {{- if $config.annotations }}
+  annotations:
+    {{- range split "\n" ($config.annotations | toYaml) }}
+    {{ . }}
+    {{- end }}
+  {{- end }}
+  name: {{ .ReleaseName }}-{{ $name }}
+spec:
+  selector:
+    app.kubernetes.io/name: {{ .ReleaseName }}
+    app.kubernetes.io/component: {{ $name }}
+  ports:
+    {{- range $ports }}
+    - protocol: {{ .protocol }}
+      port: {{ .containerPort }}
+      targetPort: {{ .containerPort }}
+    {{- end }}
+{{- end }}
+
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- if $.Values.volumes }}
+---
+{{- range $volName, $volSpec := $.Values.volumes }}
+{{- $vol := $volSpec | default dict }}
+{{- $config := index $vol "x-kubernetes" | default dict }}
+{{- if not ($config.exclude | default false) }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app.kubernetes.io/name: {{ $.Release.Name }}
+  name: {{ $volName }}
+spec:
+  accessModes:
+  - {{ $config.mode | default "ReadWriteOnce" | toJson }}
+  resources:
+    requests:
+      storage: {{ $config.size | default "1Gi" | toJson }}
+  storageClassName: {{ $config.class | default "" | toJson }}
+  volumeMode: Filesystem
+{{- end }}
+{{- end }}
+{{- end }}
