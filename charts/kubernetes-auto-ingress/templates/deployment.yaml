@@ -33,7 +33,7 @@ spec:
             value: {{ index .Values "ingressClassName" }}
           - name: ADDITIONAL_INGRESS_ANNOTATIONS_HTTP
             value: {{ index .Values "extraAnnotations" "http" "ingress" | toJson | quote }}
-          - name: ADDITIONAL_INGRESS_ANNOTATIONS_HTTP
+          - name: ADDITIONAL_INGRESS_ANNOTATIONS_HTTPS
             value: {{ index .Values "extraAnnotations" "https" "ingress" | toJson | quote }}
         tty: true
       restartPolicy: Always
