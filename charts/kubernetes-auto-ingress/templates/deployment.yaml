@@ -20,13 +20,13 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
           - name: NAMESPACE
-            {{- if index .Values "watchNamespace" -}}
+            {{- if index .Values "watchNamespace" }}
             value: {{ index .Values "watchNamespace" }}
-            {{- else -}}
+            {{- else }}
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
-            {{- end -}}
+            {{- end }}
           - name: ANNOTATION_KEY
             value: {{ index .Values "annotationKey" }}
           - name: ADDITIONAL_INGRESS_ANNOTATIONS_HTTP
