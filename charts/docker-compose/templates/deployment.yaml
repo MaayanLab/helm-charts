@@ -4,7 +4,7 @@ env:
 {{- range $name, $value := .service.environment | default list }}
 {{- if ne $value nil }}
 - name: {{ $name | toJson }}
-  value: {{ $value | toJson }}
+  value: {{ $value | replace "$$" "$" | toJson }}
 {{- end }}
 {{- end }}
 {{- end -}}
