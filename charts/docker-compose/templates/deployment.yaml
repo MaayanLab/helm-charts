@@ -30,7 +30,7 @@ volumes:
 {{- end -}}
 
 {{- range $name, $service := $.Values.services }}
-{{- with dict "ReleaseName" $.Release.Name "name" $name "service" $service }}
+{{- with dict "name" $name "service" $service }}
 {{- $config := index .service "x-kubernetes" | default dict }}
 {{- if not ($config.exclude | default false) }}
 {{- $ports := slice (index ((include "ports" .) | fromYaml) "ports") 1 }}
@@ -56,18 +56,16 @@ metadata:
     {{ . }}
     {{- end }}
   {{- end }}
-  name: {{ .ReleaseName }}-{{ $name }}
+  name: {{ $name }}
 spec:
   replicas: {{ (.service.deploy | default dict).replicas | default 1 }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ .ReleaseName }}
-      app.kubernetes.io/component: {{ $name }}
+      app.kubernetes.io/name: {{ $name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ .ReleaseName }}
-        app.kubernetes.io/component: {{ $name }}
+        app.kubernetes.io/name: {{ $name }}
     spec:
       containers:
       - name: {{ $name }}
@@ -124,11 +122,10 @@ metadata:
     {{ . }}
     {{- end }}
   {{- end }}
-  name: {{ .ReleaseName }}-{{ $name }}
+  name: {{ $name }}
 spec:
   selector:
-    app.kubernetes.io/name: {{ .ReleaseName }}
-    app.kubernetes.io/component: {{ $name }}
+    app.kubernetes.io/name: {{ $name }}
   ports:
     {{- range $ports }}
     - protocol: {{ .protocol }}
@@ -150,8 +147,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  labels:
-    app.kubernetes.io/name: {{ $.Release.Name }}
   name: {{ $volName }}
 spec:
   accessModes:

@@ -1,6 +1,8 @@
 # docker-compose helm chart
 
-This helm chart can be used to run a `docker-compose`-defined application, simply use `docker-compose config` to construct `values.yaml`
+This helm chart can be used to run a `docker-compose`-defined application, simply use `docker-compose config` to construct `values.yaml`.
+
+It is highly recommended you prefix your services/volumes in the docker-compose.yaml with the release name to prevent name collisions, we omit this prefix so that dns names work the same in the cluster as they do in the docker-compose.
 
 ## usage
 ```
