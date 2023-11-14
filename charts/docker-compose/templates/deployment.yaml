@@ -73,7 +73,7 @@ spec:
         imagePullPolicy: {{ $config.imagePullPolicy | default "Always" | toJson }}
         {{- if .service.command }}
         command: {{ list (index .service.command 0) | toJson }}
-        arguments: {{ slice .service.command 1 | toJson }}
+        args: {{ slice .service.command 1 | toJson }}
         {{- end }}
         {{- if $env }}
         env:
