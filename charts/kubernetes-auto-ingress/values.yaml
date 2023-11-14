@@ -11,21 +11,16 @@ ingressClassName: nginx
 
 extraAnnotations:
   http:
-    # if using nginx
     ingress:
       nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    # if using traefik
-    # ingress:
-    #   traefik.ingress.kubernetes.io/router.entrypoints: web
+      traefik.ingress.kubernetes.io/router.entrypoints: web
   https:
-    ingress: {}
+    ingress:
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
     # if using cert-manager
     # ingress:
     #   kubernetes.io/tls-acme: true
     #   cert-manager.io/cluster-issuer: cluster-issuer
-    # if using traefik
-    # ingress:
-    #   traefik.ingress.kubernetes.io/router.entrypoints: websecure
 
 # for deployment namespace
 watchNamespace:
