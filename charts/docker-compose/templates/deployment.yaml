@@ -139,11 +139,11 @@ spec:
 {{- end }}
 
 {{- if $.Values.volumes }}
----
 {{- range $volName, $volSpec := $.Values.volumes }}
 {{- $vol := $volSpec | default dict }}
 {{- $config := index $vol "x-kubernetes" | default dict }}
 {{- if not ($config.exclude | default false) }}
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
