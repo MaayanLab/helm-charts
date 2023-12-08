@@ -46,15 +46,11 @@ kind: Deployment
 metadata:
   {{- if $config.labels }}
   labels:
-    {{- range split "\n" ($config.labels | toYaml) }}
-    {{ . }}
-    {{- end }}
+{{ toYaml $config.labels | indent 4 }}
   {{- end }}
   {{- if $config.annotations }}
   annotations:
-    {{- range split "\n" ($config.annotations | toYaml) }}
-    {{ . }}
-    {{- end }}
+{{ toYaml $config.annotations | indent 4 }}
   {{- end }}
   name: {{ $name }}
 spec:
@@ -77,21 +73,15 @@ spec:
         {{- end }}
         {{- if $env }}
         env:
-        {{- range split "\n" ($env | toYaml) }}
-        {{ . }}
-        {{- end }}
+{{ toYaml $env | indent 8 }}
         {{- end }}
         {{- if $volumes }}
         volumeMounts:
-        {{- range split "\n" ($volumes | toYaml) }}
-        {{ . }}
-        {{- end }}
+{{ toYaml $volumes | indent 8 }}
         {{- end }}
         {{- if $ports }}
         ports:
-        {{- range split "\n" ($ports | toYaml) }}
-        {{ . }}
-        {{- end }}
+{{ toYaml $ports | indent 8 }}
         {{- end }}
       dnsPolicy: {{ $config.dnsPolicy | default "ClusterFirst" }}
       restartPolicy: {{ $config.restartPolicy | default "Always" }}
@@ -112,15 +102,11 @@ kind: Service
 metadata:
   {{- if $config.labels }}
   labels:
-    {{- range split "\n" ($config.labels | toYaml) }}
-    {{ . }}
-    {{- end }}
+{{ toYaml $config.labels | indent 4 }}
   {{- end }}
   {{- if $config.annotations }}
   annotations:
-    {{- range split "\n" ($config.annotations | toYaml) }}
-    {{ . }}
-    {{- end }}
+{{ toYaml $config.annotations | indent 4 }}
   {{- end }}
   name: {{ $name }}
 spec:
