@@ -2,7 +2,7 @@
 env:
 - null
 {{- range $name, $value := .service.environment | default list }}
-{{- if ne $value nil }}
+{{- if ne ($value | toJson) "null" }}
 - name: {{ $name | toJson }}
   value: {{ $value | replace "$$" "$" | toJson }}
 {{- end }}
@@ -38,7 +38,7 @@ volumes:
 {{- $volumes := slice (index ((include "volumes" .) | fromYaml) "volumes") 1 }}
 ---
 apiVersion: apps/v1
-{{- if eq (.service.deploy | default dict).mode "global" }}
+{{- if eq ((.service.deploy | default dict).mode | default "") "global" }}
 kind: DaemonSet
 {{- else }}
 kind: Deployment
