@@ -13,7 +13,7 @@ env:
 ports:
 - null
 {{- range $portIndex, $port := .service.ports | default list }}
-- name: port-{{ $portIndex }}
+- name: {{ $port.protocol }}-{{ $port.target }}
   containerPort: {{ $port.target }}
   protocol: {{ upper $port.protocol }}
 {{- end -}}
@@ -120,7 +120,8 @@ spec:
     app.kubernetes.io/name: {{ $name }}
   ports:
     {{- range $ports }}
-    - protocol: {{ .protocol }}
+    - name: {{ .protocol }}-{{ .containerPort }}
+      protocol: {{ .protocol }}
       port: {{ .containerPort }}
       targetPort: {{ .containerPort }}
     {{- end }}
