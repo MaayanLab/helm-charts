@@ -30,6 +30,8 @@ services:
       annotations:
         # kubernetes annotations go here
       # ...
+      # make a CronJob instead of a Deployment/DaemonSet, set to run at the specified interval
+      cron: '* * * * *'
       # opt this service out of the kubernetes deployment
       exclude: true
 
