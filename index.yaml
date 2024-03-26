@@ -3,6 +3,16 @@ entries:
   docker-compose:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2024-03-26T15:43:04.570755831Z"
+    description: A helm chart for deploying docker-compose.yaml
+    digest: 30c099890e6215813c49bfdbbee144f4af5be04f9bbf25ef44a3cc3b6df4aa0c
+    name: docker-compose
+    type: application
+    urls:
+    - https://github.com/MaayanLab/helm-charts/releases/download/docker-compose-0.2.10/docker-compose-0.2.10.tgz
+    version: 0.2.10
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2024-03-13T15:01:16.244998953Z"
     description: A helm chart for deploying docker-compose.yaml
     digest: 6d93fd48f0e615e9ff675edc008156b1d54ffa159e038c2d048656174a7a70d7
@@ -192,4 +202,4 @@ entries:
     urls:
     - https://github.com/MaayanLab/helm-charts/releases/download/kubernetes-auto-ingress-0.1.0/kubernetes-auto-ingress-0.1.0.tgz
     version: 0.1.0
-generated: "2024-03-13T15:01:16.245081738Z"
+generated: "2024-03-26T15:43:04.570839929Z"
