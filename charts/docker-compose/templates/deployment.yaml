@@ -3,8 +3,16 @@ env:
 - null
 {{- range $name, $value := .service.environment | default list }}
 {{- if ne ($value | toJson) "null" }}
+{{- if typeIs "int" $name }}
+{{- $value_parsed := regexSplit "=" $value 2 }}
+{{- $name := first $value_parsed }}
+{{- $value := last $value_parsed }}
 - name: {{ $name | toJson }}
   value: {{ $value | replace "$$" "$" | toJson }}
+{{- else }}
+- name: {{ $name | toJson }}
+  value: {{ $value | replace "$$" "$" | toJson }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end -}}
