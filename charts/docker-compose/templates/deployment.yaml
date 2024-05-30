@@ -103,6 +103,10 @@ metadata:
   name: {{ $name }}
 spec:
   replicas: {{ (.service.deploy | default dict).replicas | default 1 }}
+  {{- if $config.strategy }}
+  strategy:
+{{ toYaml $config.strategy | indent 4 }}
+  {{- end }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ $name }}
