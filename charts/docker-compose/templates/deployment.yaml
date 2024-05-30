@@ -62,6 +62,27 @@ spec:
     ports:
 {{ toYaml .ports | indent 8 }}
     {{- end }}
+    {{- if (.service.deploy | default dict).resources }}
+    resources:
+      {{- if .service.deploy.resources.limits }}
+      limits:
+        {{- if .service.deploy.resources.limits.cpus }}
+        cpu: {{ .service.deploy.resources.limits.cpus }}
+        {{- end }}
+        {{- if .service.deploy.resources.limits.memory }}
+        memory: {{ div (div .service.deploy.resources.limits.memory 1024) 1024 }}Mi
+        {{- end }}
+      {{- end }}
+      {{- if .service.deploy.resources.reservations }}
+      requests:
+        {{- if .service.deploy.resources.reservations.cpus }}
+        cpu: {{ .service.deploy.resources.reservations.cpus }}
+        {{- end }}
+        {{- if .service.deploy.resources.reservations.memory }}
+        memory: {{ div (div .service.deploy.resources.reservations.memory 1024) 1024 }}Mi
+        {{- end }}
+      {{- end }}
+    {{- end }}
   dnsPolicy: {{ .config.dnsPolicy | default "ClusterFirst" }}
   restartPolicy: {{ .config.restartPolicy | default "Always" }}
   {{- if .volumes }}
