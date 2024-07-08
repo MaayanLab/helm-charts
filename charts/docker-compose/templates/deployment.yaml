@@ -35,6 +35,10 @@ volumes:
   mountPath: {{ $volume.target }}
   subPath: data
 {{- end }}
+{{- if .service.shm_size }}
+- name: shm
+  mountPath: /dev/shm
+{{- end }}
 {{- end -}}
 
 {{- define "template" -}}
@@ -87,11 +91,17 @@ spec:
   restartPolicy: {{ .config.restartPolicy | default "Always" }}
   {{- if .volumes }}
   volumes:
-  {{- range $vol := .volumes }}
-  {{- $volName := index $vol "name"}}
+  {{- range $vol := .service.volumes }}
+  {{- $volName := index $vol "source" }}
   - name: {{ $volName }}
     persistentVolumeClaim:
       claimName: {{ $volName }}
+  {{- end }}
+  {{- if .service.shm_size }}
+  - name: shm
+    emptyDir:
+      medium: Memory
+      sizeLimit: {{ div (div .service.shm_size 1024) 1024 }}Mi
   {{- end }}
   {{- end }}
 {{- end -}}
