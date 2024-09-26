@@ -34,6 +34,11 @@ services:
       cron: '* * * * *'
       # opt this service out of the kubernetes deployment
       exclude: true
+      # other kubernetes pod spec items
+      priorityClassName: my-priority-class
+      imagePullPolicy: IfNotPresent
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
 
 volumes:
   volume-name:

@@ -87,6 +87,9 @@ spec:
         {{- end }}
       {{- end }}
     {{- end }}
+  {{- if .config.priorityClassName }}
+  priorityClassName: {{ .config.priorityClassName | toJson }}
+  {{- end }}
   dnsPolicy: {{ .config.dnsPolicy | default "ClusterFirst" }}
   restartPolicy: {{ .config.restartPolicy | default "Always" }}
   {{- if .volumes }}
