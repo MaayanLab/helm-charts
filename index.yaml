@@ -3,6 +3,18 @@ entries:
   docker-compose:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2025-06-18T17:35:22.971174259Z"
+    deprecated: true
+    description: DEPRECATED A helm chart for deploying docker-compose.yaml -- use
+      instead u8sand/kube-compose
+    digest: 227bc4c9fa0ca0c85999cb61333b0fba78aac3e6ff9f4b832175a8713296e961
+    name: docker-compose
+    type: application
+    urls:
+    - https://github.com/MaayanLab/helm-charts/releases/download/docker-compose-0.3.5/docker-compose-0.3.5.tgz
+    version: 0.3.5
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2024-09-26T15:18:43.516992952Z"
     description: A helm chart for deploying docker-compose.yaml
     digest: fd361e3c99ff64b60e6600541fd2b5515e13a71fab3a70256f98991515c6ccc7
@@ -242,4 +254,4 @@ entries:
     urls:
     - https://github.com/MaayanLab/helm-charts/releases/download/kubernetes-auto-ingress-0.1.0/kubernetes-auto-ingress-0.1.0.tgz
     version: 0.1.0
-generated: "2024-09-26T15:18:43.517145457Z"
+generated: "2025-06-18T17:35:22.971294415Z"
