@@ -1,6 +1,8 @@
 apiVersion: v2
 appVersion: 0.1.0
-description: A helm chart for deploying docker-compose.yaml
+description: DEPRECATED A helm chart for deploying docker-compose.yaml -- use instead u8sand/kube-compose
 name: docker-compose
 type: application
-version: 0.3.4
+version: 0.3.5
+# use instead u8sand/kube-compose
+deprecated: true

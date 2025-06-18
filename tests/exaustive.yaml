@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  app-svc:
+    image: image
+    ports:
+      - 80
+    shm_size: 1024m
+    volumes:
+      - data:/data
+  app-conjob:
+    x-kubernetes:
+      cron: '0 0 * * *'
+      strategy:
+        type: Recreate
+    image: image2
+    deploy:
+      resources:
+        limits:
+          memory: 15M
+        reservations:
+          cpus: '0.5'
+
+volumes:
+  data:

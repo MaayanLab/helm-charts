@@ -1,0 +1,8 @@
+version: '3.9'
+services:
+  app-svc:
+    image: nginx
+    x-kubernetes:
+      maayanlab.cloud/ingress
+    ports:
+      - 80
