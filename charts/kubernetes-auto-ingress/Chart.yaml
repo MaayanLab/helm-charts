@@ -1,6 +1,6 @@
 apiVersion: v2
-appVersion: v1.4.3
+appVersion: v1.5.0
 description: Manage ingresses for deployments from annotations
 name: kubernetes-auto-ingress
 type: application
-version: 0.1.11
+version: 0.2.0

@@ -7,7 +7,9 @@ serviceAccount:
 
 annotationKey: maayanlab.cloud/ingress
 ingressClassName: nginx
+ingressCreateTLS: true
 # ingressClassName: traefik
+# ingressCreateTLS: false
 
 extraAnnotations:
   http:

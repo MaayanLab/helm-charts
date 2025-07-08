@@ -21,7 +21,7 @@ spec:
         env:
           - name: NAMESPACE
             {{- if index .Values "watchNamespace" }}
-            value: {{ index .Values "watchNamespace" | toJson }}
+            value: {{ index .Values "watchNamespace" | quote }}
             {{- else }}
             valueFrom:
               fieldRef:
@@ -31,6 +31,8 @@ spec:
             value: {{ index .Values "annotationKey" }}
           - name: INGRESS_CLASS_NAME
             value: {{ index .Values "ingressClassName" }}
+          - name: INGRESS_CREATE_TLS
+            value: {{ index .Values "ingressCreateTLS" | quote }}
           - name: ADDITIONAL_INGRESS_ANNOTATIONS_HTTP
             value: {{ index .Values "extraAnnotations" "http" "ingress" | toJson | quote }}
           - name: ADDITIONAL_INGRESS_ANNOTATIONS_HTTPS
