@@ -21,7 +21,7 @@ spec:
         env:
           - name: NAMESPACE
             {{- if index .Values "watchNamespace" }}
-            value: {{ index .Values "watchNamespace" | toJson | quote }}
+            value: {{ index .Values "watchNamespace" | toJson }}
             {{- else }}
             valueFrom:
               fieldRef:
