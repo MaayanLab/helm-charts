@@ -165,6 +165,16 @@ entries:
     version: 0.1.0
   kubernetes-auto-ingress:
   - apiVersion: v2
+    appVersion: v1.5.2
+    created: "2025-07-09T00:27:43.532123483Z"
+    description: Manage ingresses for deployments from annotations
+    digest: 052f9abf15e7f0a988b13706b465468fc81cd14cb113671dde29a00ebb684ed6
+    name: kubernetes-auto-ingress
+    type: application
+    urls:
+    - https://github.com/MaayanLab/helm-charts/releases/download/kubernetes-auto-ingress-0.2.2/kubernetes-auto-ingress-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
     appVersion: v1.5.1
     created: "2025-07-08T22:52:12.867633732Z"
     description: Manage ingresses for deployments from annotations
@@ -304,4 +314,4 @@ entries:
     urls:
     - https://github.com/MaayanLab/helm-charts/releases/download/kubernetes-auto-ingress-0.1.0/kubernetes-auto-ingress-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-08T22:52:12.867775998Z"
+generated: "2025-07-09T00:27:43.532383789Z"
