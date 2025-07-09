@@ -32,7 +32,11 @@ spec:
           - name: INGRESS_CLASS_NAME
             value: {{ index .Values "ingressClassName" }}
           - name: INGRESS_CREATE_TLS
-            value: {{ index .Values "ingressCreateTLS" | quote }}
+          {{- if index .Values "ingressCreateTLS" }}
+            value: '1'
+          {{ else }}
+            value: ''
+          {{- end }}
           - name: ADDITIONAL_INGRESS_ANNOTATIONS_HTTP
             value: {{ index .Values "extraAnnotations" "http" "ingress" | toJson | quote }}
           - name: ADDITIONAL_INGRESS_ANNOTATIONS_HTTPS
