@@ -6,23 +6,27 @@ serviceAccount:
   name:
 
 annotationKey: maayanlab.cloud/ingress
+# if using cert-manager/nginx
 ingressClassName: nginx
 ingressCreateTLS: true
+# if using traefik
 # ingressClassName: traefik
 # ingressCreateTLS: false
 
 extraAnnotations:
   http:
     ingress:
+  # if using cert-manager/nginx
       nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  # if using traefik
       traefik.ingress.kubernetes.io/router.entrypoints: web
   https:
     ingress:
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    # if using cert-manager
-    # ingress:
-    #   kubernetes.io/tls-acme: true
-    #   cert-manager.io/cluster-issuer: cluster-issuer
+  # if using cert-manager/nginx
+    kubernetes.io/tls-acme: true
+    cert-manager.io/cluster-issuer: cluster-issuer
+  # if using traefik
+  # traefik.ingress.kubernetes.io/router.entrypoints: websecure
 
 # for deployment namespace
 watchNamespace:
