@@ -364,4 +364,15 @@ entries:
     urls:
     - https://github.com/MaayanLab/helm-charts/releases/download/kubernetes-auto-ingress-0.1.0/kubernetes-auto-ingress-0.1.0.tgz
     version: 0.1.0
-generated: "2026-06-10T14:46:16.140054587Z"
+  sshkube:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2026-06-10T16:50:29.879804939Z"
+    description: A helm chart for deploying sshkube
+    digest: 783d410cec3e5bf5ab98d215a411aebcb6cd766cf8490f13df85e8ea29e641e9
+    name: sshkube
+    type: application
+    urls:
+    - https://github.com/MaayanLab/helm-charts/releases/download/sshkube-0.0.1/sshkube-0.0.1.tgz
+    version: 0.0.1
+generated: "2026-06-10T16:50:29.879881171Z"
