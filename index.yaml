@@ -163,6 +163,26 @@ entries:
     urls:
     - https://github.com/MaayanLab/helm-charts/releases/download/docker-compose-0.1.0/docker-compose-0.1.0.tgz
     version: 0.1.0
+  garage:
+  - apiVersion: v2
+    appVersion: v2.3.0
+    created: "2026-06-10T14:46:16.139948108Z"
+    description: S3-compatible object store for small self-hosted geo-distributed
+      deployments
+    digest: 939a47ca7a2c2181726e411e1bd37e85dc0199f11c86684d777d501216569c8c
+    home: https://garagehq.deuxfleurs.fr/
+    icon: https://garagehq.deuxfleurs.fr/images/garage-logo.svg
+    keywords:
+    - geo-distributed
+    - read-after-write-consistency
+    - s3-compatible
+    name: garage
+    sources:
+    - https://git.deuxfleurs.fr/Deuxfleurs/garage.git
+    type: application
+    urls:
+    - https://github.com/MaayanLab/helm-charts/releases/download/garage-0.9.3/garage-0.9.3.tgz
+    version: 0.9.3
   kubernetes-auto-ingress:
   - apiVersion: v2
     appVersion: v2.0.3
@@ -344,4 +364,4 @@ entries:
     urls:
     - https://github.com/MaayanLab/helm-charts/releases/download/kubernetes-auto-ingress-0.1.0/kubernetes-auto-ingress-0.1.0.tgz
     version: 0.1.0
-generated: "2026-04-17T20:23:02.230654379Z"
+generated: "2026-06-10T14:46:16.140054587Z"
