@@ -16,19 +16,21 @@ ingressCreateTLS: true
 extraAnnotations:
   http:
     ingress:
-  # if using cert-manager/nginx
+      external-dns.alpha.kubernetes.io/ttl: "120"
+      # if using nginx
       nginx.ingress.kubernetes.io/ssl-redirect: "false"
-  # if using traefik
+      # if using traefik
       traefik.ingress.kubernetes.io/router.entrypoints: web
   https:
     ingress:
-  # if using cert-manager/nginx
-    kubernetes.io/tls-acme: true
-    cert-manager.io/cluster-issuer: cluster-issuer
-  # if using traefik
-  # traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      external-dns.alpha.kubernetes.io/ttl: "120"
+      # if using cert-manager
+      kubernetes.io/tls-acme: true
+      cert-manager.io/cluster-issuer: cluster-issuer
+      # if using traefik
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
 
 # for deployment namespace
-watchNamespace:
+# watchNamespace:
 # for all namespaces
-# watchNamespace: '*'
+watchNamespace: '*'
