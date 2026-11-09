@@ -25,7 +25,7 @@ extraAnnotations:
     ingress:
       external-dns.alpha.kubernetes.io/ttl: "120"
       # if using cert-manager
-      kubernetes.io/tls-acme: true
+      kubernetes.io/tls-acme: "true"
       cert-manager.io/cluster-issuer: cluster-issuer
       # if using traefik
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
