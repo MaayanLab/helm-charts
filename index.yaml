@@ -426,6 +426,16 @@ entries:
     version: 0.1.0
   sshkube:
   - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2026-11-16T18:34:39.417993332Z"
+    description: A helm chart for deploying sshkube
+    digest: 01241d649738d782d36a52a8d8f806b98c73392df434110a587a1e9ec0aeebd2
+    name: sshkube
+    type: application
+    urls:
+    - https://github.com/MaayanLab/helm-charts/releases/download/sshkube-0.0.2/sshkube-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.1.0
     created: "2026-06-10T16:50:29.879804939Z"
     description: A helm chart for deploying sshkube
@@ -435,4 +445,4 @@ entries:
     urls:
     - https://github.com/MaayanLab/helm-charts/releases/download/sshkube-0.0.1/sshkube-0.0.1.tgz
     version: 0.0.1
-generated: "2026-11-09T22:16:48.816951277Z"
+generated: "2026-11-16T18:34:39.418066912Z"
